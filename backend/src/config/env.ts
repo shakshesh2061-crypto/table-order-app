@@ -27,4 +27,11 @@ export const env = {
   wsEventsTable: process.env.WS_EVENTS_TABLE,
   wsConnectionsTable: process.env.WS_CONNECTIONS_TABLE,
   dynamoRegion: process.env.AWS_REGION ?? "us-east-1",
+
+  // In Lambda, req.get("host") resolves to the API Gateway invoke domain,
+  // not the CloudFront domain the React app is actually served from — so
+  // building customer-facing links (QR codes) from the request host is
+  // wrong in that split-domain deployment. Falls back to deriving from the
+  // request when unset (correct for local dev, where both are the same origin).
+  frontendBaseUrl: process.env.FRONTEND_BASE_URL,
 };

@@ -44,6 +44,18 @@ export interface ApiStackProps extends cdk.StackProps {
   userPool: cognito.UserPool;
   userPoolClient: cognito.UserPoolClient;
   wsEventsTable: dynamodb.Table;
+  /**
+   * The CloudFront domain the frontend is served from — needed to build
+   * customer-facing links (QR codes) correctly, since in this split-domain
+   * deployment req.get("host") inside the Lambda resolves to the API
+   * Gateway invoke domain, not the frontend's domain. WebStack creates the
+   * CloudFront distribution, but is deployed *after* ApiStack (the frontend
+   * build needs ApiStack's own URL first) — so this can't be wired through
+   * as a real cross-stack reference without a circular dependency. Passed
+   * as a known constant from bin/infra.ts instead; update it if the
+   * WebStack distribution is ever destroyed and recreated under a new domain.
+   */
+  frontendBaseUrl: string;
 }
 
 export class ApiStack extends cdk.Stack {
@@ -125,6 +137,7 @@ export class ApiStack extends cdk.Stack {
         // (AuthStack, Phase B) — it's just not wired into this deployment.
         AUTH_PROVIDER: "local",
         STORAGE_PROVIDER: "s3",
+        FRONTEND_BASE_URL: props.frontendBaseUrl,
         DB_CLIENT: "pg",
         DB_HOST: props.dbHost,
         DB_PORT: props.dbPort,

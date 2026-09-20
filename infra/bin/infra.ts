@@ -25,6 +25,12 @@ const data = new DataStack(app, "TableOrderDataStack", {
 
 const auth = new AuthStack(app, "TableOrderAuthStack", { env });
 
+// WebStack's CloudFront domain, known from the first deploy — see the
+// frontendBaseUrl doc comment on ApiStackProps for why this can't be a
+// real cross-stack reference (ApiStack must exist before the frontend can
+// be built, and WebStack deploys after ApiStack).
+const FRONTEND_BASE_URL = "https://d2k3v3lord2yqa.cloudfront.net";
+
 new ApiStack(app, "TableOrderApiStack", {
   env,
   vpc: network.vpc,
@@ -37,6 +43,7 @@ new ApiStack(app, "TableOrderApiStack", {
   userPool: auth.userPool,
   userPoolClient: auth.userPoolClient,
   wsEventsTable: data.wsEventsTable,
+  frontendBaseUrl: FRONTEND_BASE_URL,
 });
 
 new RealtimeStack(app, "TableOrderRealtimeStack", {
