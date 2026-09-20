@@ -7,7 +7,7 @@ body {
 }
 
 h1, h2, .font-display {
-  font-family: "Fredoka", system-ui, sans-serif;
+  font-family: "Baloo 2", system-ui, sans-serif;
 }
 
 /* Playful press feedback on anything interactive */
@@ -52,4 +52,20 @@ button:active, a:active {
 }
 .animate-glow-pulse {
   animation: soft-glow-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes bounce-dot {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.5; }
+  40% { transform: translateY(-10px); opacity: 1; }
+}
+.animate-bounce-dot {
+  animation: bounce-dot 1s ease-in-out infinite;
+}
+
+@keyframes confetti-burst {
+  0% { transform: translate(0, 0) rotate(0deg) scale(0.5); opacity: 1; }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--rot)) scale(1); opacity: 0; }
+}
+.animate-confetti {
+  animation: confetti-burst 1s cubic-bezier(0.2, 0.6, 0.4, 1) both;
 }

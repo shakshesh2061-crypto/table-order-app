@@ -16,7 +16,21 @@ export function Layout({ title, nav }: { title: string; nav: NavItem[] }) {
   const { user, logout } = useAuth();
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="relative min-h-screen flex flex-col overflow-hidden">
+      {/* Site-wide decorative background — subtle, consistent across every page */}
+      <div
+        className="pointer-events-none fixed -z-10 -top-10 -right-16 w-56 h-56 rounded-full bg-brand-200/30 blur-3xl animate-float-slow"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none fixed -z-10 top-1/3 -left-20 w-64 h-64 rounded-full bg-accent-100/40 blur-3xl animate-float-slower"
+        aria-hidden
+      />
+      <div
+        className="pointer-events-none fixed -z-10 bottom-0 right-0 w-48 h-48 rounded-full bg-purple-100/30 blur-3xl animate-float-slow"
+        aria-hidden
+      />
+
       <header className="sticky top-0 z-10 bg-gradient-to-r from-brand-500 to-brand-400 px-4 py-4 flex items-center justify-between shadow-md">
         <div>
           <h1 className="text-xl font-display font-semibold text-white flex items-center gap-2">

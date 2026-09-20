@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ["'Fredoka'", "system-ui", "sans-serif"],
+        display: ["'Baloo 2'", "system-ui", "sans-serif"],
         sans: ["'Poppins'", "system-ui", "sans-serif"],
       },
       colors: {

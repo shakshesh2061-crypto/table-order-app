@@ -3,6 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { menuApi } from "../../api/endpoints/menu";
 import { adminApi } from "../../api/endpoints/admin";
 import { Button } from "../../components/Button";
+import { LoadingState } from "../../components/LoadingState";
 import type { SetItemRef } from "../../types";
 
 function formatPrice(cents: number): string {
@@ -79,7 +80,7 @@ export function MenuManager() {
     invalidate();
   }
 
-  if (!data) return null;
+  if (!data) return <LoadingState message="Loading menu…" emoji="⚙️" />;
 
   return (
     <div className="p-4 space-y-6">

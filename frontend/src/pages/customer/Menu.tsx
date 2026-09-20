@@ -6,6 +6,7 @@ import { useCart, MAX_ITEM_QUANTITY } from "./CartContext";
 import type { MenuItem } from "../../types";
 import { AddonModal } from "./AddonModal";
 import { MenuItemCard } from "./MenuItemCard";
+import { LoadingState } from "../../components/LoadingState";
 
 const CATEGORY_EMOJI: Record<string, string> = {
   appetizers: "🥗",
@@ -25,7 +26,7 @@ export function Menu() {
   const { addLine, lines, tableLabel } = useCart();
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
 
-  if (isLoading) return <div className="p-8 text-center text-neutral-500">Loading menu… 🍳</div>;
+  if (isLoading) return <LoadingState message="Loading menu…" />;
   if (!data) return null;
 
   const itemCount = lines.reduce((sum, l) => sum + l.quantity, 0);
@@ -33,17 +34,7 @@ export function Menu() {
   let cardIndex = 0;
 
   return (
-    <div className="relative p-4 overflow-hidden">
-      {/* Decorative floating background blobs — subtle, not distracting */}
-      <div
-        className="pointer-events-none fixed -top-10 -right-16 w-56 h-56 rounded-full bg-brand-200/40 blur-3xl animate-float-slow"
-        aria-hidden
-      />
-      <div
-        className="pointer-events-none fixed top-1/3 -left-20 w-64 h-64 rounded-full bg-accent-100/50 blur-3xl animate-float-slower"
-        aria-hidden
-      />
-
+    <div className="relative p-4">
       <div className="relative">
         {tableLabel && (
           <div className="mb-3 text-sm font-semibold text-brand-700 bg-brand-50 border-2 border-brand-100 rounded-2xl px-3 py-2 animate-fade-in-up">

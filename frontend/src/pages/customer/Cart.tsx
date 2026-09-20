@@ -49,7 +49,7 @@ export function Cart() {
         })),
       });
       clear();
-      navigate(`/customer/orders/${order.id}`);
+      navigate(`/customer/orders/${order.id}`, { state: { justPlaced: true } });
     } catch (err) {
       setError((err as Error).message);
     } finally {
